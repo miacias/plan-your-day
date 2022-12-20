@@ -1,3 +1,12 @@
+:root {
+  /* palette 1 - https://www.colourlovers.com/palette/4891231/Lalalala_III */
+  --mauve: #613C46; /* past */
+  --pinker-salmon: #FF707E; /* present */
+  --pink-beige: #FFC2A6; /* future */
+  --floss-moss: #CCE8D8; /* save */
+  --mint-white: #E3FFF9; /* background */
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
