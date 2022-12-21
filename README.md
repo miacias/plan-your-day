@@ -82,8 +82,9 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
 ## Credits 
 
 Documentation referenced:
-- Mozilla Developer Network (HTML and CSS)
+- Mozilla Developer Network
 - Slack Overflow forums
+- Day.js.org
 
 Tutorials referenced:
 - WebDevSimplified, [GitHub](https://github.com/WebDevSimplified), [YT Channel](https://www.youtube.com/watch?v=Ki0XXrlKlHY) - setting interval in clock to update live

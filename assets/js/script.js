@@ -28,10 +28,8 @@ $(function () {
 
 // JS and DayJS to create live updating clock
 function setClock() {
-  const dayNow = dayjs().format("dddd MMM, YYYY");
-  const timeNow = dayjs().format("h:mmA");
-  const now = $("#currentDay");
-  const interval = dayjs().set("minute", 1);
-  now.text(dayNow + " at " + timeNow);
+  const now = dayjs().format("dddd MMM, YYYY h:mm:ssA"); // either delete Seconds, or find a way to make them much smaller
+  const currentTime = $("#currentDay");
+  currentTime.text(now);
   }
-  setInterval(setClock, 0);
+  setInterval(setClock);
