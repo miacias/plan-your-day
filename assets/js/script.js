@@ -27,9 +27,15 @@ $(function () {
 
   });
 
-  var dayNow = dayjs().format("dddd MMM, YYYY");
-  var timeNow = dayjs().format("h:mmA");
-  var now = $("#currentDay");
+
+
+// time tutorial by WebDevSimplified at https://www.youtube.com/watch?v=Ki0XXrlKlHY (GitHub https://github.com/WebDevSimplified)
+// JS and DayJS to create live updating clock
+function setClock() {
+  const dayNow = dayjs().format("dddd MMM, YYYY");
+  const timeNow = dayjs().format("h:mmA");
+  const now = $("#currentDay");
+  const interval = dayjs().set("minute", 1);
   now.text(dayNow + " at " + timeNow);
-  now.set(6000);
-  // setInterval(6000); // 6k milliseconds = 1 minute
+  }
+  setInterval(setClock, 0);
