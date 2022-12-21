@@ -22,5 +22,14 @@ $(function () {
     // attribute of each time-block be used to do this?
     //
     // TODO: Add code to display the current date in the header of the page.
-  });
+
   
+
+  });
+
+  var dayNow = dayjs().format("dddd MMM, YYYY");
+  var timeNow = dayjs().format("h:mmA");
+  var now = $("#currentDay");
+  now.text(dayNow + " at " + timeNow);
+  now.set(6000);
+  // setInterval(6000); // 6k milliseconds = 1 minute
