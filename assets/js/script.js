@@ -23,17 +23,47 @@ $(function () {
 
 });
 
+function setHourId() {
+  var numberHour = 0;
+  if (numberHour > 12) {
+    numberHour - 12; // counting with 12-hr clock
+  }
+}
 
-var dayContainerEl = $("#day-container");
-var hourBlockEl = $("<div>"); // create container DIV
-var saveBtn = $("<button>"); // create save button
-var txtarea = $("<textarea>"); // create textarea
-var postedHour = $("<div>"); // create current hour DIV
-hourBlockEl.append(saveBtn, txtarea, postedHour);
+const workDayHours = 8;
+
+function makeDay() {
+  var dayContainerEl = $("#day-container"); // contains entire day
+  for (h = 0; h < workDayHours; h++) {
+    // create container DIV with Object-attributes
+    var hourBlockEl = $("<div>", {
+      id: "hour-" + setHourId,
+      class: "row time-block",
+    });
+    // create save button
+    var saveBtn = $("<button>", {
+      class: "btn saveBtn col-2 col-md-1",
+      ariaLabel: "save",
+    });
+    // create hidden <i>
+    var buttonI = $("<i>", {
+      class: "fas fa-save",
+      ariaHidden: "true"
+    });
+    saveBtn.appendChild(buttonI);
+    // create textarea
+    var txtarea = $("<textarea>");
+    // create current hour DIV
+    var postedHour = $("<div>");
+    hourBlockEl.append(saveBtn, txtarea, postedHour);
+  }
+  dayContainerEl.append(hourBlockEl);
+}
 
 
 
-dayContainerEl.append(hourBlockEl);
+
+
 /*
 1. FOR loop 
   - creates hourly sections with save button, textarea, class, data-attribute
@@ -64,4 +94,13 @@ dayContainerEl.append(hourBlockEl);
   - IF data-attribute is past/present/future, then apply BOOTSTRAP colors?
   - find how to use custom colors
 
+4. localStorage
+  - store textarea input by hour-# ID in array of objects
+      - var userDay = [];
+      - var userHour = {
+        hour: hour-#,
+        text: description,
+      }
+  - stringify to store, parse to put in HTML/JS
+  - add button that says "Clear Your Day" with alert that says you can't take back this action (accept/cancel) to clear localStorage
 */
