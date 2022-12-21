@@ -33,11 +33,14 @@
   </head>
 
   <body>
+    <!-- BOOTSTRAP padding 5, border 5, border bottom has color, text centered, (add custom background color!) -->
     <header class="p-5 mb-4 border-5 border-bottom border-dark text-center bg-">
-      <h1 class="display-3">Work Day Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your day ♥</p>
-      <p id="currentDay" class="lead"></p>
+        <!-- BOOTSTRAP display-1-6 dictates heading sizes from biggest to smallest -->
+        <h1 class="display-3">Work Day Scheduler</h1>
+        <p class="lead">A simple calendar app for scheduling your day ♥</p>
+        <p id="currentDay" class="lead"></p>
     </header>
+    <!-- BOOTSTRAP p for padding, x for horizontal axis -->
     <div class="container-lg px-5">
       <!-- Use class for "past", "present", and "future" to apply styles to the
         time-block divs accordingly. The javascript will need to do this by
@@ -51,29 +54,29 @@
 
       <!-- Example of a past time block. The "past" class adds a gray background color. -->
       <div id="hour-9" class="row time-block past">
-        <div class="col-2 col-md-1 hour text-center py-3">9AM</div>
-        <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
         <button class="btn saveBtn col-2 col-md-1" aria-label="save">
-          <i class="fas fa-save" aria-hidden="true"></i>
-        </button>
+            <i class="fas fa-save" aria-hidden="true"></i>
+          </button>
+        <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
+        <div class="col-2 col-md-1 hour text-center py-3">9AM</div>
       </div>
 
       <!-- Example of a a present time block. The "present" class adds a red background color. -->
       <div id="hour-10" class="row time-block present">
-        <div class="col-2 col-md-1 hour text-center py-3">10AM</div>
-        <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
         <button class="btn saveBtn col-2 col-md-1" aria-label="save">
-          <i class="fas fa-save" aria-hidden="true"></i>
+            <i class="fas fa-save" aria-hidden="true"></i>
         </button>
+        <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
+        <div class="col-2 col-md-1 hour text-center py-3">10AM</div>
       </div>
 
       <!-- Example of a future time block. The "future" class adds a green background color. -->
       <div id="hour-11" class="row time-block future">
-        <div class="col-2 col-md-1 hour text-center py-3">11AM</div>
-        <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
         <button class="btn saveBtn col-2 col-md-1" aria-label="save">
-          <i class="fas fa-save" aria-hidden="true"></i>
+            <i class="fas fa-save" aria-hidden="true"></i>
         </button>
+        <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
+        <div class="col-2 col-md-1 hour text-center py-3">11AM</div>
       </div>
     <!-- link for jQuery API -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
