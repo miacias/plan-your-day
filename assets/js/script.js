@@ -33,3 +33,29 @@ function setClock() {
   currentTime.text(now);
   }
   setInterval(setClock);
+
+/*
+1. FOR loop 
+  - creates hourly sections with save button, textarea, class, data-attribute
+  - data-attributes: data-past, data-present, data-future
+  - class: hour
+  - id: hour-# (example: hour-9, hour-10, etc.)
+      - can the for loop increment the hour number by ++ when assigning them?
+      - if the for loop can increment the hour number, can it use DAYJS to count hour numbers correctly? (example: 9, 10, 11, 12, 1, 2, 3, 4, 5)
+  
+2. timeOfDay function
+  - define DAYJS variables as past, present, and future
+  - set data-attribute based on past, present, and future
+    - if (var past === dayjs("#hour-#).text) { 
+        set data-attribute to past 
+      } else if (var present === dayjs("#hour-#").text) {
+        set data-attribute to present
+      } else {
+        set data-attribute to future
+      }
+
+3. BOOTSTRAP or jQuery UI
+  - IF data-attribute is XYZ, then apply BOOTSTRAP colors?
+  - find how to use custom colors
+
+*/
