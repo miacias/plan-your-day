@@ -40,6 +40,7 @@ function makeDay() {
       id: "hour-" + setHourId(h),
       class: "row time-block",
     });
+    dayContainerEl.append(hourBlockEl);
     // create save button
     var saveBtn = $("<button>", {
       class: "btn saveBtn col-2 col-md-1",
@@ -55,9 +56,8 @@ function makeDay() {
     // create current hour DIV
     var postedHour = $("<div>");
     hourBlockEl.append(saveBtn, txtarea, postedHour);
-    saveBtn.append(buttonI);
+    saveBtn.append(buttonI); // check order of appending on test!!!!
   }
-  dayContainerEl.append(hourBlockEl);
 }
 
 
@@ -98,7 +98,7 @@ function makeDay() {
   - store textarea input by hour-# ID in array of objects
       - var userDay = [];
       - var userHour = {
-        hour: hour-#,
+        hourId: hour-#,
         text: description,
       }
   - stringify to store, parse to put in HTML/JS
