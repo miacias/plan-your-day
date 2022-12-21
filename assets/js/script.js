@@ -23,21 +23,21 @@ $(function () {
 
 });
 
-function setHourId() {
-  var numberHour = 0;
+function setHourId(numberHour) {
   if (numberHour > 12) {
-    numberHour - 12; // counting with 12-hr clock
+    return numberHour - 12; // counting with 12-hr clock. better to return a value than to reassign by numberHour = something BECAUSE risk to variable definition
   }
+  return numberHour;
 }
 
-const workDayHours = 8;
+const workDayHours = 17; // 12-hr representation of 5pm
 
 function makeDay() {
   var dayContainerEl = $("#day-container"); // contains entire day
-  for (h = 0; h < workDayHours; h++) {
+  for (h = 9; h < workDayHours; h++) {
     // create container DIV with Object-attributes
     var hourBlockEl = $("<div>", {
-      id: "hour-" + setHourId,
+      id: "hour-" + setHourId(h),
       class: "row time-block",
     });
     // create save button
@@ -50,12 +50,12 @@ function makeDay() {
       class: "fas fa-save",
       ariaHidden: "true"
     });
-    saveBtn.appendChild(buttonI);
     // create textarea
     var txtarea = $("<textarea>");
     // create current hour DIV
     var postedHour = $("<div>");
     hourBlockEl.append(saveBtn, txtarea, postedHour);
+    saveBtn.append(buttonI);
   }
   dayContainerEl.append(hourBlockEl);
 }
