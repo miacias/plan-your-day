@@ -12,7 +12,7 @@ $(function () {
         hourId: textArea.attr("id"), // not defined correctly
         text: textArea
       }
-      userDay.push(userHour);
+      userDay.push(userHour.this.text);
       localStorage.setItem("day-notes", JSON.stringify(userDay));
       var savedText = JSON.parse(localStorage.getItem("day-notes"));
     })
