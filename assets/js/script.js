@@ -18,15 +18,12 @@ $(function () {
     })
 
     //
-    // TODO: Add code to apply the past, present, or future class to each time block by comparing the id to the current hour. HINTS: How can the id attribute of each time-block be used to conditionally add or remove the past, present, and future classes? How can Day.js be used to get the current hour in 24-hour time?
-
-    //
     // TODO: Add code to get any user input that was saved in localStorage and set the values of the corresponding textarea elements. HINT: How can the id attribute of each time-block be used to do this?
 
 
   // live updating clock in header
   function setClock() {
-    const now = dayjs().format("dddd MMM, YYYY h:mm:ssA"); // either delete Seconds, or find a way to make them much smaller
+    const now = dayjs().format("dddd MMM, YYYY h:mm:ssA"); // either delete Seconds, or find a way to make them visibly much smaller
     const currentTime = $("#currentDay");
     currentTime.text(now);
     }
@@ -36,41 +33,33 @@ $(function () {
 
 function setHourId(numberHour) {
   if (numberHour > 12) {
-    return numberHour - 12; // counting with 12-hr clock. better to return a value than to reassign by numberHour = something BECAUSE risk to variable definition
+    return numberHour - 12; // better to return a value than to reassign by numberHour = something BECAUSE risk to variable definition
   }
   return numberHour;
 }
 
-function setAttribute(numberHour, hourBlockEl) { // calculate past, present, future with dayj 
+function setAttribute(numberHour, hourBlockEl) { // past, present, future
   const time1 = dayjs().hour(dayjs().hour()); // military time
   const time2 = dayjs().hour(numberHour);
   if (time2.isBefore(time1)) {
-    console.log("PAST")
-    // hourBlockEl.data("timeframe", "past")
     hourBlockEl.addClass("past");
   } else if (time2.isAfter(time1)) {
-    console.log("FUTURE")
-    // hourBlockEl.data("timeframe", "future")
     hourBlockEl.addClass("future");
   } else {
-    console.log("PRESENT")
-    // hourBlockEl.data("timeframe", "present")
     hourBlockEl.addClass("present");
   }
 }
-// setAttribute(9)
 
 const workDayHours = 18; // 12-hr representation of 5pm
 
 function makeDay() {
-  var dayContainerEl = $("#day-container"); // contains entire day
+  var dayContainerEl = $("#day-container"); // contains entire day HTML
   for (h = 9; h < workDayHours; h++) {
     // create container DIV with Object-attributes
     var thisHour = setHourId(h);
     var hourBlockEl = $("<div>", {
       id: "hour-" + setHourId(h),
       class: "row time-block",
-      // timeframe: setAttribute(thisHour, hourBlockEl)
     });
     dayContainerEl.append(hourBlockEl);
     // create save button
@@ -98,7 +87,6 @@ function makeDay() {
     setAttribute(h, hourBlockEl);
     colorize(hourBlockEl);
   }
-  // return hourBlockEl;
 }
 makeDay();
 
@@ -113,13 +101,9 @@ function colorize(hourBlockEl) {
   }
 }
 
-
-
 /*
 
 3. BOOTSTRAP or jQuery UI
-  - IF data-attribute is past/present/future, then apply BOOTSTRAP colors?
-  - find how to use custom colors
   - on hover, apply shadow
 
 4. localStorage
