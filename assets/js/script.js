@@ -30,15 +30,33 @@ function setHourId(numberHour) {
   return numberHour;
 }
 
-const workDayHours = 17; // 12-hr representation of 5pm
+function setDataAttribute(numberHour, hourBlockEl) { // calculate past, present, future with dayjs
+  const time1 = dayjs().hour(numberHour);
+  const time2 = dayjs().hour();
+  if (time2.isBefore(time1)) {
+    console.log("PAST")
+    // hourBlockEl.data("timeframe", "past")
+  } else if (time2.isAfter(time1)) {
+    console.log("FUTURE")
+    // hourBlockEl.data("timeframe", "future")
+  } else {
+    console.log("PRESENT")
+    // hourBlockEl.data("timeframe", "present")
+  }
+}
+setDataAttribute() // delete this call once makeDay is working
+
+const workDayHours = 18; // 12-hr representation of 5pm
 
 function makeDay() {
   var dayContainerEl = $("#day-container"); // contains entire day
   for (h = 9; h < workDayHours; h++) {
     // create container DIV with Object-attributes
+    var thisHour = setHourId(h);
     var hourBlockEl = $("<div>", {
       id: "hour-" + setHourId(h),
       class: "row time-block",
+      timeframe: setDataAttribute(thisHour, hourBlockEl)
     });
     dayContainerEl.append(hourBlockEl);
     // create save button
@@ -52,31 +70,26 @@ function makeDay() {
       ariaHidden: "true"
     });
     // create textarea
-    var txtarea = $("<textarea>");
+    var txtarea = $("<textarea>", {
+      class: "col-8 col-md-10 description",
+      rows: "3"
+    });
     // create current hour DIV
-    var postedHour = $("<div>");
+    var postedHour = $("<div>", {
+      class: "col-2 col-md-1 hour text-center py-3",
+    });
     hourBlockEl.append(saveBtn, txtarea, postedHour);
-    saveBtn.append(buttonI); // check order of appending on test!!!!
+    postedHour.text = setHourId + " " + dayjs("setHourId").format("A"); // incorrect: HTML text content missing
+    saveBtn.append(buttonI);
   }
 }
+makeDay();
 
 
 
 
 
 /*
-1. FOR loop 
-  - creates hourly sections with save button, textarea, class, data-attribute
-  - data-attributes: data-past, data-present, data-future
-  - class: hour
-  - id: hour-# (example: hour-9, hour-10, etc.)
-      - can the for loop increment the hour number by ++ when assigning them?
-      - if the for loop can increment the hour number, can it use DAYJS to count hour numbers correctly? (example: 9, 10, 11, 12, 1, 2, 3, 4, 5)
-      - Manual solution:
-          - var availableHours = 
-          - if (hour-# > 12) {
-            hour-# - 12 // corrects AM-PM max 12 counting
-          }
   
 2. matchTime function
   - define DAYJS variables as past, present, and future

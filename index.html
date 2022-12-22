@@ -41,7 +41,7 @@
         <p id="currentDay" class="lead"></p>
     </header>
     <!-- BOOTSTRAP p for padding, x for horizontal axis -->
-    <div class="container-lg px-5">
+    <div id="day-container" class="container-lg px-5">
       <!-- Use class for "past", "present", and "future" to apply styles to the
         time-block divs accordingly. The javascript will need to do this by
         adding/removing these classes on each div by comparing the hour in the
@@ -53,31 +53,31 @@
         -->
 
       <!-- Example of a past time block. The "past" class adds a gray background color. -->
-      <div id="hour-9" class="row time-block past">
+      <!-- <div id="hour-9" class="row time-block past">
         <button class="btn saveBtn col-2 col-md-1" aria-label="save">
             <i class="fas fa-save" aria-hidden="true"></i>
           </button>
         <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
         <div class="col-2 col-md-1 hour text-center py-3">9AM</div>
-      </div>
+      </div> -->
 
       <!-- Example of a a present time block. The "present" class adds a red background color. -->
-      <div id="hour-10" class="row time-block present">
+      <!-- <div id="hour-10" class="row time-block present">
         <button class="btn saveBtn col-2 col-md-1" aria-label="save">
             <i class="fas fa-save" aria-hidden="true"></i>
         </button>
         <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
         <div class="col-2 col-md-1 hour text-center py-3">10AM</div>
-      </div>
+      </div> -->
 
       <!-- Example of a future time block. The "future" class adds a green background color. -->
-      <div id="hour-11" class="row time-block future">
+      <!-- <div id="hour-11" class="row time-block future">
         <button class="btn saveBtn col-2 col-md-1" aria-label="save">
             <i class="fas fa-save" aria-hidden="true"></i>
         </button>
         <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
         <div class="col-2 col-md-1 hour text-center py-3">11AM</div>
-      </div>
+      </div> -->
     <!-- link for jQuery API -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- link for local JS -->
