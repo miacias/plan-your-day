@@ -82,10 +82,20 @@ function makeDay() {
     postedHour.text = setHourId + " " + dayjs("setHourId").format("A"); // incorrect: HTML text content missing
     saveBtn.append(buttonI);
   }
+  return hourBlockEl;
 }
 makeDay();
 
-
+function colorize(hourBlockEl) {
+  const dataAttribute = hourBlockEl.data("timeframe");
+  if (dataAttribute === "past") {
+    hourBlockEl.addClass("past")
+  } else if (dataAttribute === "future") {
+    hourBlockEl.addClass("future")
+  } else if (dataAttribute === "present") {
+    hourBlockEl.addClass("present")
+  }
+}
 
 
 
@@ -106,6 +116,7 @@ makeDay();
 3. BOOTSTRAP or jQuery UI
   - IF data-attribute is past/present/future, then apply BOOTSTRAP colors?
   - find how to use custom colors
+  - on hover, apply shadow
 
 4. localStorage
   - store textarea input by hour-# ID in array of objects
