@@ -41,24 +41,24 @@ function setHourId(numberHour) {
   return numberHour;
 }
 
-// function setAttribute(numberHour, hourBlockEl) { // calculate past, present, future with dayjs
-//   const time1 = dayjs().hour(numberHour);
-//   const time2 = dayjs().hour();
-//   if (time2.isBefore(time1)) {
-//     console.log("PAST")
-//     // hourBlockEl.data("timeframe", "past")
-//     // hourBlockEl.children().addClass("past");
-//   } else if (time2.isAfter(time1)) {
-//     console.log("FUTURE")
-//     // hourBlockEl.data("timeframe", "future")
-//     // hourBlockEl.children().addClass("future");
-//   } else {
-//     console.log("PRESENT")
-//     // hourBlockEl.data("timeframe", "present")
-//     // hourBlockEl.children().addClass("present");
-//   }
-// }
-// setAttribute() // delete this call once makeDay is working
+function setAttribute(numberHour, hourBlockEl) { // calculate past, present, future with dayj 
+  const time1 = dayjs().hour(dayjs().hour()); // military time
+  const time2 = dayjs().hour(numberHour);
+  if (time2.isBefore(time1)) {
+    console.log("PAST")
+    // hourBlockEl.data("timeframe", "past")
+    hourBlockEl.addClass("past");
+  } else if (time2.isAfter(time1)) {
+    console.log("FUTURE")
+    // hourBlockEl.data("timeframe", "future")
+    hourBlockEl.addClass("future");
+  } else {
+    console.log("PRESENT")
+    // hourBlockEl.data("timeframe", "present")
+    hourBlockEl.addClass("present");
+  }
+}
+// setAttribute(9)
 
 const workDayHours = 18; // 12-hr representation of 5pm
 
@@ -93,10 +93,12 @@ function makeDay() {
       class: "col-2 col-md-1 hour text-center py-3",
     });
     hourBlockEl.append(saveBtn, txtarea, postedHour);
-    postedHour.text = setHourId + " " + dayjs("setHourId").format("A"); // incorrect: HTML text content missing
+    postedHour.text(thisHour + " " + (h >= 12?"PM":"AM")); // ternary operator
     saveBtn.append(buttonI);
+    setAttribute(h, hourBlockEl);
+    colorize(hourBlockEl);
   }
-  return hourBlockEl;
+  // return hourBlockEl;
 }
 makeDay();
 
