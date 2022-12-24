@@ -93,20 +93,16 @@ $(function () {
       hourBlockEl.addClass("present")
     }
   }
+
+// adds footer
+$("#day-container").after("<footer>Have a great day!</footer>");
+var page = $(".description");
+var clear = $(".reset");
+clear.click(function(event) {
+  var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
+  if (doubleCheck === true) {
+    localStorage.clear();
+    page.text("");
+  }
+})
 });
-
-// does not clear text from page correctly
-// var page = document.querySelector(".page");
-// var clear = $(".reset");
-// clear.click(function(event) {
-//   event.preventDefault();
-//   var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
-//   if (doubleCheck === true) {
-//     localStorage.clear();
-//     page.removeChild();
-//     makeDay();
-//   }
-// })
-
-// 3. BOOTSTRAP or jQuery UI
-//   - on hover, apply shadow

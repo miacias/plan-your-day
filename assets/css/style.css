@@ -31,9 +31,15 @@ textarea {
   background: transparent;
   border: none;
   resize: none;
-  color: #000000;
-  border-left: 1px solid black;
+  color: var(--grape);
+  border-left: 1px solid var(--grape);
   padding: 10px;
+}
+
+.hour {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .description {
@@ -45,32 +51,28 @@ textarea {
 }
 
 .row {
-  border-top: 1px solid white;
+  border-top: 1px solid var(--nice-off-white);
 }
 
 .hour {
   background-color: var(--floss-moss);
-  color: #000000;
-  border-top: 1px dashed #000000;
-}
-
-.past {
-  background-color: var(--mauve);
-  /* color: white; */
+  color: var(--grape);
+  border-top: 1px dashed var(--grape);
 }
 
 .past textarea {
+  background-color: var(--mauve);
   color: var(--nice-off-white);
 }
 
-.present {
+.present textarea {
   background-color: var(--pinker-salmon);
-  color: white;
+  color: var(--nice-off-white);
 }
 
-.future {
+.future textarea {
   background-color: var(--pink-beige);
-  color: white;
+  color: var(--grape);
 }
 
 .saveBtn {
@@ -78,10 +80,18 @@ textarea {
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   background-color: var(--floss-moss);
-  color: white;
+  color: var(--plain-white);
 }
 
 .saveBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
+  color: var(--pinker-salmon);
+}
+
+footer {
+  background-color: var(--grape);
+  color: var(--nice-off-white);
+  text-align: center;
+  padding: 2em;
 }
