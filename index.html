@@ -16,11 +16,8 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-    <!-- link for Google Font API -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
+    <!-- link for Plex Sans Google Font API -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,700;1,100&display=swap" rel="stylesheet">
     <!-- link for Day.js API -->
     <script
     src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
@@ -34,15 +31,18 @@
 
   <body>
     <!-- BOOTSTRAP padding 5, border 5, border bottom has color, text centered, (add custom background color!) -->
-    <header class="p-5 mb-4 border-5 border-bottom border-dark text-center bg-">
+    <header class="p-5 mb-4 text-center">
         <!-- BOOTSTRAP display-1-6 dictates heading sizes from biggest to smallest -->
-        <h1 class="display-3">Work Day Scheduler</h1>
+        <h1>Work Day Scheduler</h1>
         <p class="lead">A simple calendar app for scheduling your day ♥</p>
-        <p id="currentDay" class="lead"></p>
+        <ul id="current-day">
+          <li id="main-time"></li>
+          <li id="seconds-time"></li>
+          <li id="am-pm-time"></li>
+        </ul>
     </header>
     <!-- BOOTSTRAP p for padding, x for horizontal axis -->
-    <div id="day-container" class="container-lg px-5">
-     <button class="reset">Clear Your Day</button>
+    <div id="day-container" class="container-lg px-5 py-3">
     <!-- link for jQuery API -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- link for local JS -->

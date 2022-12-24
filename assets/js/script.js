@@ -4,9 +4,14 @@ $(function () {
 
   // live updating clock in header
   function setClock() {
-    const now = dayjs().format("dddd MMM, YYYY h:mm:ssA"); // either delete Seconds, or find a way to make them visibly much smaller
-    const currentTime = $("#currentDay");
-    currentTime.text(now);
+    const now = dayjs().format("dddd, MMM D, YYYY h:mm"); // either delete Seconds, or find a way to make them visibly much smaller
+    const seconds = dayjs().format(":ss");
+    // seconds.css("fontSize", "small");
+    const amPm = dayjs().format(" A");
+    $("#main-time").text(now);
+    $("#seconds-time").text(seconds);
+    $("#am-pm-time").text(amPm);
+    // currentTime.text(now + seconds + amPm);
     }
     setInterval(setClock);
   
@@ -93,20 +98,20 @@ $(function () {
       hourBlockEl.addClass("present")
     }
   }
+
+// adds clear button
+$("#day-container").after("<button class=\"reset\">Clear Your Day</button>");
+// adds footer
+$(".reset").after("<footer>Have a great day!</footer>");
+
+// clear button functionality
+var page = $(".description");
+var clear = $(".reset");
+clear.click(function(event) {
+  var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
+  if (doubleCheck === true) {
+    localStorage.clear();
+    page.text("");
+  }
+})
 });
-
-// does not clear text from page correctly
-// var page = document.querySelector(".page");
-// var clear = $(".reset");
-// clear.click(function(event) {
-//   event.preventDefault();
-//   var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
-//   if (doubleCheck === true) {
-//     localStorage.clear();
-//     page.removeChild();
-//     makeDay();
-//   }
-// })
-
-// 3. BOOTSTRAP or jQuery UI
-//   - on hover, apply shadow
