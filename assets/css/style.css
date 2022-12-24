@@ -1,6 +1,22 @@
+:root {
+  /* palette 1 Lalalala III by dontbeshy - https://www.colourlovers.com/palette/4891231/Lalalala_III */
+  --mauve: #613C46; /* past */
+  --pinker-salmon: #FF707E; /* present */
+  --pink-beige: #FFC2A6; /* future */
+  --floss-moss: #CCE8D8; /* save */
+  --mint-white: #E3FFF9; /* background */
+  /* palette 2 Lalalala VI by dontbeshy - https://www.colourlovers.com/palette/4891232/Lalalala_VI*/
+  --plain-white: #FAF7FE;
+  --aqua-sky: #39B0AE;
+  --grape: #520257;
+  --pink-mouse: #F599AE;
+  --nice-off-white: #E8EFF9;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
+    background-color: var(--mint-white);
   }
   
   textarea {
@@ -25,31 +41,31 @@ body {
   }
   
   .hour {
-    background-color: #ffffff;
+    background-color: var(--floss-moss);
     color: #000000;
     border-top: 1px dashed #000000;
   }
   
   .past {
-    background-color: #d3d3d3;
+    background-color: var(--mauve);
     color: white;
   }
   
   .present {
-    background-color: #ff6961;
+    background-color: var(--pinker-salmon);
     color: white;
   }
   
   .future {
-    background-color: #77dd77;
+    background-color: var(--pink-beige);
     color: white;
   }
   
   .saveBtn {
-    border-left: 1px solid black;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-color: #06aed5;
+    border-right: 1px solid black;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: var(--floss-moss);
     color: white;
   }
   

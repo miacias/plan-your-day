@@ -1,24 +1,112 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+// code that interacts with DOM is wrapped in a jQuery call to ensure that nothing is run until browser renders HTML elements
+
 $(function () {
-    // TODO: Add a listener for click events on the save button. This code should
-    // use the id in the containing time-block as a key to save the user input in
-    // local storage. HINT: What does `this` reference in the click listener
-    // function? How can DOM traversal be used to get the "hour-x" id of the
-    // time-block containing the button that was clicked? How might the id be
-    // useful when saving the description in local storage?
-    //
-    // TODO: Add code to apply the past, present, or future class to each time
-    // block by comparing the id to the current hour. HINTS: How can the id
-    // attribute of each time-block be used to conditionally add or remove the
-    // past, present, and future classes? How can Day.js be used to get the
-    // current hour in 24-hour time?
-    //
-    // TODO: Add code to get any user input that was saved in localStorage and set
-    // the values of the corresponding textarea elements. HINT: How can the id
-    // attribute of each time-block be used to do this?
-    //
-    // TODO: Add code to display the current date in the header of the page.
-  });
+
+  // live updating clock in header
+  function setClock() {
+    const now = dayjs().format("dddd MMM, YYYY h:mm:ssA"); // either delete Seconds, or find a way to make them visibly much smaller
+    const currentTime = $("#currentDay");
+    currentTime.text(now);
+    }
+    setInterval(setClock);
   
+  // counts with 12hr clock
+  function setHourId(numberHour) {
+    if (numberHour > 12) {
+      return numberHour - 12; // better to return a value than to reassign by numberHour = something BECAUSE risk to variable definition
+    }
+    return numberHour;
+  }
+
+  // sets past, present, future by comparing hour block to present time
+  function setAttribute(numberHour, hourBlockEl) {
+    const time1 = dayjs().hour(dayjs().hour()); // military time
+    const time2 = dayjs().hour(numberHour);
+    if (time2.isBefore(time1)) {
+      hourBlockEl.addClass("past");
+    } else if (time2.isAfter(time1)) {
+      hourBlockEl.addClass("future");
+    } else {
+      hourBlockEl.addClass("present");
+    }
+  }
+    
+  const workDayHours = 18; // 24-hr representation of 5pm +1
+    
+  function makeDay() {
+    var dayContainerEl = $("#day-container"); // contains entire day HTML
+    for (h = 9; h < workDayHours; h++) {
+      // create container DIV with Object-attributes
+      var thisHour = setHourId(h);
+      var hourBlockEl = $("<div>", {
+        id: "hour-" + setHourId(h),
+        class: "row time-block",
+      });
+      dayContainerEl.append(hourBlockEl);
+      // create save button
+      var saveBtn = $("<button>", {
+        class: "btn saveBtn col-2 col-md-1",
+        id: "btn-" + setHourId(h),
+        ariaLabel: "save",
+      });
+      // create hidden <i>
+      var buttonI = $("<i>", {
+        class: "fas fa-save",
+        ariaHidden: "true"
+      });
+      // create textarea
+      var textArea = $("<textarea>", {
+        class: "col-8 col-md-10 description",
+        id: "txt-" + setHourId(h),
+        rows: "3",
+        name: "event-info",
+        text: localStorage.getItem("btn-" + setHourId(h))
+      });
+      // create current hour DIV
+      var postedHour = $("<div>", {
+        class: "col-2 col-md-1 hour text-center py-3",
+      });
+  
+      hourBlockEl.append(saveBtn, textArea, postedHour);
+      postedHour.text(thisHour + " " + (h >= 12?"PM":"AM")); // ternary operator
+      saveBtn.append(buttonI);
+      setAttribute(h, hourBlockEl);
+      colorize(hourBlockEl);
+  
+      saveBtn.click(function(event) {
+        event.preventDefault();
+        var whatIsId = this.id; // button ID
+        var whereIsText = this.nextElementSibling; // text element
+        localStorage.setItem(whatIsId, whereIsText.value);
+      })
+    }
+  }
+  makeDay();
+    
+  function colorize(hourBlockEl) {
+    const dataAttribute = hourBlockEl.data("timeframe");
+    if (dataAttribute === "past") {
+      hourBlockEl.addClass("past")
+    } else if (dataAttribute === "future") {
+      hourBlockEl.addClass("future")
+    } else if (dataAttribute === "present") {
+      hourBlockEl.addClass("present")
+    }
+  }
+});
+
+// does not clear text from page correctly
+// var page = document.querySelector(".page");
+// var clear = $(".reset");
+// clear.click(function(event) {
+//   event.preventDefault();
+//   var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
+//   if (doubleCheck === true) {
+//     localStorage.clear();
+//     page.removeChild();
+//     makeDay();
+//   }
+// })
+
+// 3. BOOTSTRAP or jQuery UI
+//   - on hover, apply shadow
