@@ -1,5 +1,4 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that the code isn't run until the browser has finished rendering all the elements in the html.
-const userDay = [];
 
 $(function () {
     // TODO: Add a listener for click events on the save button. This code should use the id in the containing time-block as a key to save the user input in local storage. HINT: What does `this` reference in the click listener function? How can DOM traversal be used to get the "hour-x" id of the time-block containing the button that was clicked? How might the id be useful when saving the description in local storage?
@@ -66,7 +65,7 @@ function makeDay() {
       id: "txt-" + setHourId(h),
       rows: "3",
       name: "event-info",
-      text: "hello"
+      text: ""
     });
     // create current hour DIV
     var postedHour = $("<div>", {
@@ -78,6 +77,23 @@ function makeDay() {
     saveBtn.append(buttonI);
     setAttribute(h, hourBlockEl);
     colorize(hourBlockEl);
+
+    saveBtn.click(function(event) {
+      event.preventDefault();
+      var whatIsId = this.id; // button ID
+      var whereIsText = this.nextElementSibling; // text element
+      const userDay = {}; // empty object is ready to carry the hours and text within the day planner
+      userDay["hour-" + whatIsId] = whereIsText.text; // the property name is set using whatIsId, and the value is set using whereIsText.text
+      // var userHour = {
+      //   hourId: whatIsId,
+      //   text: whereIsText.value
+      // }
+      // userDay.push(userHour);
+      localStorage.setItem("day-notes", JSON.stringify(userDay));
+      var savedText = JSON.parse(localStorage.getItem("day-notes"));
+      textArea.text = savedText.value;
+    })
+    }
 }
 makeDay();
 
@@ -92,20 +108,7 @@ function colorize(hourBlockEl) {
   }
 }
 
-saveBtn.click(function(event) {
-  event.preventDefault();
-  var whatIsId = this.id; // button ID
-  var whereIsText = this.nextElementSibling; // text element
-  var userHour = {
-    hourId: whatIsId,
-    text: whereIsText.value
-  }
-  userDay.push(userHour);
-  localStorage.setItem("day-notes", JSON.stringify(userDay));
-  var savedText = JSON.parse(localStorage.getItem("day-notes"));
-  textArea.text = savedText.value;
-})
-}
+
 
 // function localStorage(userHour) { // return a value from event listener to pass into this function
   // userDay.push(userHour);
