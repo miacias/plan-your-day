@@ -65,7 +65,7 @@ function makeDay() {
       id: "txt-" + setHourId(h),
       rows: "3",
       name: "event-info",
-      text: ""
+      text: localStorage.getItem("btn-" + setHourId(h))
     });
     // create current hour DIV
     var postedHour = $("<div>", {
@@ -82,10 +82,9 @@ function makeDay() {
       event.preventDefault();
       var whatIsId = this.id; // button ID
       var whereIsText = this.nextElementSibling; // text element
-      localStorage.setItem("hour-" + whatIsId, whereIsText.value);
-      whereIsText.text = localStorage.getItem("hour-" + whatIsId);
+      localStorage.setItem(whatIsId, whereIsText.value);
     })
-    }
+  }
 }
 makeDay();
 
