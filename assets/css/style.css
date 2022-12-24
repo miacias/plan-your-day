@@ -14,62 +14,74 @@
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    background-color: var(--mint-white);
-  }
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  background-color: var(--mint-white);
+}
+
+header {
+  background-color: var(--aqua-sky);
+}
+
+#day-container {
+  margin: 2em;
+}
   
-  textarea {
-    background: transparent;
-    border: none;
-    resize: none;
-    color: #000000;
-    border-left: 1px solid black;
-    padding: 10px;
-  }
-  
-  .description {
-    white-space: pre-wrap;
-  }
-  
-  .time-block {
-    border-radius: 15px;
-  }
-  
-  .row {
-    border-top: 1px solid white;
-  }
-  
-  .hour {
-    background-color: var(--floss-moss);
-    color: #000000;
-    border-top: 1px dashed #000000;
-  }
-  
-  .past {
-    background-color: var(--mauve);
-    color: white;
-  }
-  
-  .present {
-    background-color: var(--pinker-salmon);
-    color: white;
-  }
-  
-  .future {
-    background-color: var(--pink-beige);
-    color: white;
-  }
-  
-  .saveBtn {
-    border-right: 1px solid black;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    background-color: var(--floss-moss);
-    color: white;
-  }
-  
-  .saveBtn i:hover {
-    font-size: 20px;
-    transition: all 0.3s ease-in-out;
-  }
+textarea {
+  background: transparent;
+  border: none;
+  resize: none;
+  color: #000000;
+  border-left: 1px solid black;
+  padding: 10px;
+}
+
+.description {
+  white-space: pre-wrap;
+}
+
+.time-block {
+  border-radius: 15px;
+}
+
+.row {
+  border-top: 1px solid white;
+}
+
+.hour {
+  background-color: var(--floss-moss);
+  color: #000000;
+  border-top: 1px dashed #000000;
+}
+
+.past {
+  background-color: var(--mauve);
+  /* color: white; */
+}
+
+.past textarea {
+  color: var(--nice-off-white);
+}
+
+.present {
+  background-color: var(--pinker-salmon);
+  color: white;
+}
+
+.future {
+  background-color: var(--pink-beige);
+  color: white;
+}
+
+.saveBtn {
+  border-right: 1px solid black;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background-color: var(--floss-moss);
+  color: white;
+}
+
+.saveBtn i:hover {
+  font-size: 20px;
+  transition: all 0.3s ease-in-out;
+}
