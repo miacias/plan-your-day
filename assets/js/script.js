@@ -94,8 +94,12 @@ $(function () {
     }
   }
 
+// adds clear button
+$("#day-container").after("<button class=\"reset\">Clear Your Day</button>");
 // adds footer
-$("#day-container").after("<footer>Have a great day!</footer>");
+$(".reset").after("<footer>Have a great day!</footer>");
+
+// clear button functionality
 var page = $(".description");
 var clear = $(".reset");
 clear.click(function(event) {

@@ -89,7 +89,15 @@ textarea {
   color: var(--pinker-salmon);
 }
 
+.reset {
+  display: block;
+  margin: auto;
+  background-color: var(--pink-mouse);
+  color: var(--mint-white);
+}
+
 footer {
+  margin-top: 1em;
   background-color: var(--grape);
   color: var(--nice-off-white);
   text-align: center;
