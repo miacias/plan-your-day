@@ -82,9 +82,8 @@ function makeDay() {
       event.preventDefault();
       var whatIsId = this.id; // button ID
       var whereIsText = this.nextElementSibling; // text element
-      const userDay = {}; // empty object is ready to carry the hours and text within the day planner
-      userDay["hour-" + whatIsId] = whereIsText.text; // the property name is set using whatIsId, and the value is set using whereIsText.text
       localStorage.setItem("hour-" + whatIsId, whereIsText.value);
+      whereIsText.text = localStorage.getItem("hour-" + whatIsId);
     })
     }
 }
@@ -101,27 +100,11 @@ function colorize(hourBlockEl) {
   }
 }
 
-
-
-// function localStorage(userHour) { // return a value from event listener to pass into this function
-  // userDay.push(userHour);
-  // localStorage.setItem("day-notes", JSON.stringify(userDay));
-  // var savedText = JSON.parse(localStorage.getItem("day-notes"));
-  // textArea.text = savedText.value;
-// }
-
 /*
 
 3. BOOTSTRAP or jQuery UI
   - on hover, apply shadow
 
-4. localStorage
-  - store textarea input by hour-# ID in array of objects
-      - var userDay = [];
-      - var userHour = {
-        hourId: hour-#,
-        text: description,
-      }
-  - stringify to store, parse to put in HTML/JS
+4. 
   - add button that says "Clear Your Day" with alert that says you can't take back this action (accept/cancel) to clear localStorage
 */
