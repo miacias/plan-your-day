@@ -65,7 +65,8 @@ function makeDay() {
       class: "col-8 col-md-10 description",
       id: "txt-" + setHourId(h),
       rows: "3",
-      text: ""
+      name: "event-info",
+      text: "hello"
     });
     // create current hour DIV
     var postedHour = $("<div>", {
@@ -77,19 +78,6 @@ function makeDay() {
     saveBtn.append(buttonI);
     setAttribute(h, hourBlockEl);
     colorize(hourBlockEl);
-
-    saveBtn.click(function(event) {
-      event.preventDefault();
-      var userHour = {
-        hourId: this.id,
-        text: textArea.val()
-      }
-      userDay.push(userHour);
-      localStorage.setItem("day-notes", JSON.stringify(userDay));
-      var savedText = JSON.parse(localStorage.getItem("day-notes"));
-      textArea.text = savedText.value;
-    })
-  }
 }
 makeDay();
 
@@ -104,17 +92,20 @@ function colorize(hourBlockEl) {
   }
 }
 
-
-// $("btn-9").on("click", function() {
-//     var userHour = {
-//       hourId: this.id,
-//       text: $("txt-9").val()
-//     }
-//     userDay.push(userHour);
-//     localStorage.setItem("day-notes", JSON.stringify(userDay));
-//     var savedText = JSON.parse(localStorage.getItem("day-notes"));
-//     textArea.text = savedText;
-// })
+saveBtn.click(function(event) {
+  event.preventDefault();
+  var whatIsId = this.id; // button ID
+  var whereIsText = this.nextElementSibling; // text element
+  var userHour = {
+    hourId: whatIsId,
+    text: whereIsText.value
+  }
+  userDay.push(userHour);
+  localStorage.setItem("day-notes", JSON.stringify(userDay));
+  var savedText = JSON.parse(localStorage.getItem("day-notes"));
+  textArea.text = savedText.value;
+})
+}
 
 // function localStorage(userHour) { // return a value from event listener to pass into this function
   // userDay.push(userHour);
