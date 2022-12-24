@@ -48,6 +48,11 @@ textarea {
   padding: 10px;
 }
 
+textarea:focus {
+  box-shadow: inset 0 0 10px var(--plain-white);
+  outline: none;
+}
+
 .hour {
   display: flex;
   align-items: center;
@@ -113,6 +118,10 @@ textarea {
   border-radius: 10px;
   background-color: var(--pink-mouse);
   color: var(--mint-white);
+}
+
+.reset:hover {
+  box-shadow: inset 0 0 10px var(--plain-white);
 }
 
 footer {
