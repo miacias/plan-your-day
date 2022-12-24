@@ -1,21 +1,8 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that the code isn't run until the browser has finished rendering all the elements in the html.
+const userDay = [];
 
 $(function () {
     // TODO: Add a listener for click events on the save button. This code should use the id in the containing time-block as a key to save the user input in local storage. HINT: What does `this` reference in the click listener function? How can DOM traversal be used to get the "hour-x" id of the time-block containing the button that was clicked? How might the id be useful when saving the description in local storage?
-    const userDay = [];
-
-    saveBtn = $(".saveBtn");
-    saveBtn.click(function(event) {
-      event.preventDefault();
-      var textArea = $("description").children("textarea").value;
-      var userHour = {
-        hourId: textArea.attr("id"), // not defined correctly
-        text: textArea
-      }
-      userDay.push(userHour.this.text);
-      localStorage.setItem("day-notes", JSON.stringify(userDay));
-      var savedText = JSON.parse(localStorage.getItem("day-notes"));
-    })
 
     //
     // TODO: Add code to get any user input that was saved in localStorage and set the values of the corresponding textarea elements. HINT: How can the id attribute of each time-block be used to do this?
@@ -65,6 +52,7 @@ function makeDay() {
     // create save button
     var saveBtn = $("<button>", {
       class: "btn saveBtn col-2 col-md-1",
+      id: "btn-" + setHourId(h),
       ariaLabel: "save",
     });
     // create hidden <i>
@@ -73,19 +61,34 @@ function makeDay() {
       ariaHidden: "true"
     });
     // create textarea
-    var txtarea = $("<textarea>", {
+    var textArea = $("<textarea>", {
       class: "col-8 col-md-10 description",
-      rows: "3"
+      id: "txt-" + setHourId(h),
+      rows: "3",
+      text: ""
     });
     // create current hour DIV
     var postedHour = $("<div>", {
       class: "col-2 col-md-1 hour text-center py-3",
     });
-    hourBlockEl.append(saveBtn, txtarea, postedHour);
+
+    hourBlockEl.append(saveBtn, textArea, postedHour);
     postedHour.text(thisHour + " " + (h >= 12?"PM":"AM")); // ternary operator
     saveBtn.append(buttonI);
     setAttribute(h, hourBlockEl);
     colorize(hourBlockEl);
+
+    saveBtn.click(function(event) {
+      event.preventDefault();
+      var userHour = {
+        hourId: this.id,
+        text: textArea.val()
+      }
+      userDay.push(userHour);
+      localStorage.setItem("day-notes", JSON.stringify(userDay));
+      var savedText = JSON.parse(localStorage.getItem("day-notes"));
+      textArea.text = savedText.value;
+    })
   }
 }
 makeDay();
@@ -100,6 +103,25 @@ function colorize(hourBlockEl) {
     hourBlockEl.addClass("present")
   }
 }
+
+
+// $("btn-9").on("click", function() {
+//     var userHour = {
+//       hourId: this.id,
+//       text: $("txt-9").val()
+//     }
+//     userDay.push(userHour);
+//     localStorage.setItem("day-notes", JSON.stringify(userDay));
+//     var savedText = JSON.parse(localStorage.getItem("day-notes"));
+//     textArea.text = savedText;
+// })
+
+// function localStorage(userHour) { // return a value from event listener to pass into this function
+  // userDay.push(userHour);
+  // localStorage.setItem("day-notes", JSON.stringify(userDay));
+  // var savedText = JSON.parse(localStorage.getItem("day-notes"));
+  // textArea.text = savedText.value;
+// }
 
 /*
 
