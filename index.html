@@ -29,7 +29,7 @@
     <title>Work Day Scheduler</title>
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <!-- BOOTSTRAP padding 5, border 5, border bottom has color, text centered, (add custom background color!) -->
     <header class="p-5 mb-4 text-center">
         <!-- BOOTSTRAP display-1-6 dictates heading sizes from biggest to smallest -->
@@ -37,7 +37,7 @@
         <p class="lead">A simple calendar app for scheduling your day ♥</p>
         <ul id="current-day">
           <li id="main-time"></li>
-          <li id="seconds-time"></li>
+          <li id="seconds-time" class="d-none d-sm-block"></li>
           <li id="am-pm-time"></li>
         </ul>
     </header>

@@ -12,15 +12,7 @@ In making this planner, I learned better how to use jQuery to write JavaScript i
 N/A. [Deployed site here!](https://miacias.github.io/plan-your-day/)
  
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running. 
-
- 
- 
-
 ## Usage 
-
- 
- 
 
 Provide instructions and examples for use. Include screenshots as needed. 
 

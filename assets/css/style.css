@@ -137,10 +137,12 @@ textarea:hover {
 }
 
 footer {
+  display: block;
   margin-top: 1em;
   padding: 2em;
   background-color: var(--grape);
   color: var(--nice-off-white);
   text-align: center;
   font-weight: bold;
+  max-height: 100%;
 }
