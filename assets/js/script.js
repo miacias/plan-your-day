@@ -4,9 +4,14 @@ $(function () {
 
   // live updating clock in header
   function setClock() {
-    const now = dayjs().format("dddd MMM, YYYY h:mm:ssA"); // either delete Seconds, or find a way to make them visibly much smaller
-    const currentTime = $("#currentDay");
-    currentTime.text(now);
+    const now = dayjs().format("dddd, MMM D, YYYY h:mm"); // either delete Seconds, or find a way to make them visibly much smaller
+    const seconds = dayjs().format(":ss");
+    // seconds.css("fontSize", "small");
+    const amPm = dayjs().format(" A");
+    $("#main-time").text(now);
+    $("#seconds-time").text(seconds);
+    $("#am-pm-time").text(amPm);
+    // currentTime.text(now + seconds + amPm);
     }
     setInterval(setClock);
   

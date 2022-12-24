@@ -23,8 +23,8 @@ header {
   background-color: var(--aqua-sky);
 }
 
-#day-container {
-  margin: 2em;
+.currentDay {
+  display: flex;
 }
   
 textarea {
@@ -76,7 +76,7 @@ textarea {
 }
 
 .saveBtn {
-  border-right: 1px solid black;
+  border-right: 1px solid var(--grape);
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   background-color: var(--floss-moss);
@@ -92,6 +92,9 @@ textarea {
 .reset {
   display: block;
   margin: auto;
+  border: none;
+  padding: 1em;
+  border-radius: 10px;
   background-color: var(--pink-mouse);
   color: var(--mint-white);
 }
