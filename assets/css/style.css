@@ -23,8 +23,17 @@ header {
   background-color: var(--aqua-sky);
 }
 
-.currentDay {
+#current-day {
+  list-style-type: none;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#seconds-time,
+#am-pm-time {
+  font-size: small;
 }
   
 textarea {
