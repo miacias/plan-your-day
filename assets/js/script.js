@@ -84,14 +84,7 @@ function makeDay() {
       var whereIsText = this.nextElementSibling; // text element
       const userDay = {}; // empty object is ready to carry the hours and text within the day planner
       userDay["hour-" + whatIsId] = whereIsText.text; // the property name is set using whatIsId, and the value is set using whereIsText.text
-      // var userHour = {
-      //   hourId: whatIsId,
-      //   text: whereIsText.value
-      // }
-      // userDay.push(userHour);
-      localStorage.setItem("day-notes", JSON.stringify(userDay));
-      var savedText = JSON.parse(localStorage.getItem("day-notes"));
-      textArea.text = savedText.value;
+      localStorage.setItem("hour-" + whatIsId, whereIsText.value);
     })
     }
 }
