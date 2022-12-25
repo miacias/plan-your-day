@@ -11,7 +11,9 @@ $(function () {
     $("#main-time").text(now);
     $("#seconds-time").text(seconds);
     $("#am-pm-time").text(amPm);
-    // currentTime.text(now + seconds + amPm);
+    // mobile view reduced text
+    const mobileNow = dayjs().format("h:mmA M/D/YY")
+    $("#mobile-time").text(mobileNow);
     }
     setInterval(setClock);
   
@@ -102,7 +104,7 @@ $(function () {
 // adds clear button
 $("#day-container").after("<button class=\"reset\">Clear Your Day</button>");
 // adds footer
-$(".reset").after("<footer>Have a great day!</footer>");
+$(".reset").after("<footer class=\"vh-20\">Have a great day!</footer>");
 
 // clear button functionality
 var page = $(".description");
