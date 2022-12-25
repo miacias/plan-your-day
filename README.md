@@ -14,24 +14,12 @@ N/A. [Deployed site here!](https://miacias.github.io/plan-your-day/)
 
 ## Usage 
 
-Provide instructions and examples for use. Include screenshots as needed. 
-
+Click or tap in an hour-block to add text. Be sure to click or tap the "Save" icon to the left of the block after adding text so that the page may be closed without losing information. Reopen the page any time to check what is planned and keep track of the day. As an added feature, there is a "Clear Your Day" button which allows the user to empty the entire planner to start fresh with a new day - or to take a much deserved rest.
  
- 
+Below is an image of a clear and free day once 5pm has passed and each time block is darkened. The planner while still during active hours has brighter hues and colors:
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax: 
+![Pale blue planner showing the hours of 9am to 5pm, each hour presented in a dense, mauve-colored row.](/assets/images/screencapture-plan-your-day.png)
 
- 
- 
-
-   ```md 
-
-   ![alt text](assets/images/screenshot.png) 
-
-   ``` 
-
- 
- 
 
 ## Credits 
 
