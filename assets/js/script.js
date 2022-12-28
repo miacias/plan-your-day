@@ -78,7 +78,6 @@ $(function () {
       postedHour.text(thisHour + " " + (h >= 12?"PM":"AM")); // ternary operator
       saveBtn.append(buttonI);
       setAttribute(h, hourBlockEl);
-      colorize(hourBlockEl);
   
       saveBtn.click(function(event) {
         event.preventDefault();
@@ -89,17 +88,6 @@ $(function () {
     }
   }
   makeDay();
-    
-  function colorize(hourBlockEl) {
-    const dataAttribute = hourBlockEl.data("timeframe");
-    if (dataAttribute === "past") {
-      hourBlockEl.addClass("past")
-    } else if (dataAttribute === "future") {
-      hourBlockEl.addClass("future")
-    } else if (dataAttribute === "present") {
-      hourBlockEl.addClass("present")
-    }
-  }
 
 // adds clear button
 $("#day-container").after("<button class=\"reset\">Clear Your Day</button>");
