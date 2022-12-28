@@ -36,6 +36,7 @@ $(function () {
     } else {
       hourBlockEl.addClass("present");
     }
+    setInterval(setAttribute);
   }
     
   const workDayHours = 18; // 24-hr representation of 5pm +1
