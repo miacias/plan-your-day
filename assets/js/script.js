@@ -32,26 +32,40 @@ $(function () {
   function colorize() {
     var textBlock = $(".time-block");
     var rightNow = (dayjs().hour()); // live time in military
+    var timeOfBlock;
     for (c = 0; c < textBlock.length; c++) {
-      var timeOfBlock = match(textBlock[c].id);
+      // timeOfBlock = Number(match(textBlock[c].id)[0]); // used with greater than and less than
+      timeOfBlock = match(textBlock[c].id)[0]; // used with .isBefore and .isAfter
       if (timeOfBlock < 9) {
-        timeOfBlock + 12; // ugly fix for converting back to military time
+        timeOfBlock + 12; // ugly fix for converting back to military time since .isBefore and .isAfter are not working
       }
-      if (timeOfBlock < rightNow) {
-        pageText.removeClass("past present future");
-        pageText.addClass("past");
-      } else if (timeOfBlock > rightNow) {
-        pageText.removeClass("past present future");
-        pageText.addClass("future");
+      // uses greater than / less than to determine time
+      // if (timeOfBlock < rightNow) {
+      //   pageText.removeClass("past present future");
+      //   pageText.addClass("past");
+      // } else if (timeOfBlock > rightNow) {
+      //   pageText.removeClass("past present future");
+      //   pageText.addClass("future");
+      // } else {
+      //   pageText.removeClass("past present future");
+      //   pageText.addClass("present");
+      // }
+      // uses dayJS isBefore/isAfter to determine time
+      const time1 = dayjs().hour(dayjs().hour()); // military time
+      const time2 = dayjs().hour(timeOfBlock);
+      if (time2.isBefore(time1)) {
+        textBlock.removeClass("past present future");
+        textBlock.addClass("past");
+      } else if (time2.isAfter(time1)) {
+        textBlock.removeClass("past present future");
+        textBlock.addClass("future");
       } else {
-        pageText.removeClass("past present future");
-        pageText.addClass("present");
+        textBlock.removeClass("past present future");
+        textBlock.addClass("present");
       }
     }
   }
-  colorize(); // attributes added on page open
-  setInterval(colorize, 300000); // updated each minute
-
+  setInterval(colorize, 1000);
 
   // counts with 12hr clock
   function setHourId(numberHour) {
@@ -115,7 +129,7 @@ $(function () {
       hourBlockEl.append(saveBtn, textArea, postedHour);
       postedHour.text(thisHour + " " + (h >= 12?"PM":"AM")); // ternary operator
       saveBtn.append(buttonI);
-      setAttribute(h, hourBlockEl);
+      // setAttribute(h, hourBlockEl);
   
       saveBtn.click(function(event) {
         event.preventDefault();
