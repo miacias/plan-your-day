@@ -15,7 +15,7 @@ $(function () {
     const mobileNow = dayjs().format("h:mmA M/D/YY")
     $("#mobile-time").text(mobileNow);
     }
-    setInterval(setClock);
+  setInterval(setClock);
   
   // counts with 12hr clock
   function setHourId(numberHour) {
@@ -25,20 +25,58 @@ $(function () {
     return numberHour;
   }
 
+  // WORKING WHEN CALLED IN MAKEDAY AFTER BUTTON APPEND AS setAttribute(h, hourBlockEl);
   // sets past, present, future by comparing hour block to present time
+  // function setAttribute(numberHour, hourBlockEl) {
+  //   const time1 = dayjs().hour(dayjs().hour()); // military time
+  //   const time2 = dayjs().hour(numberHour);
+  //   if (time2.isBefore(time1)) {
+  //     hourBlockEl.removeClass("past present future");
+  //     hourBlockEl.addClass("past");
+  //   } else if (time2.isAfter(time1)) {
+  //     hourBlockEl.removeClass("past present future");
+  //     hourBlockEl.addClass("future");
+  //   } else {
+  //     hourBlockEl.removeClass("past present future");
+  //     hourBlockEl.addClass("present");
+  //   }
+  // }
+  
+  function match() {
+    var numberMatch = str.match(/(\d+)/);
+  }
+
   function setAttribute(numberHour, hourBlockEl) {
     const time1 = dayjs().hour(dayjs().hour()); // military time
     const time2 = dayjs().hour(numberHour);
-    if (time2.isBefore(time1)) {
-      hourBlockEl.addClass("past");
-    } else if (time2.isAfter(time1)) {
-      hourBlockEl.addClass("future");
-    } else {
-      hourBlockEl.addClass("present");
+    var hourTextBlock = $(".description");
+    for (t = 9; t < hourTextBlock.length; t++) {
+      if (time2.isBefore(time1)) {
+        hourBlockEl.removeClass("past present future");
+        hourBlockEl.addClass("past");
+      } else if (time2.isAfter(time1)) {
+        hourBlockEl.removeClass("past present future");
+        hourBlockEl.addClass("future");
+      } else {
+        hourBlockEl.removeClass("past present future");
+        hourBlockEl.addClass("present");
+      }
     }
-    setInterval(setAttribute);
   }
-    
+  setAttribute(); // attributes added on page open
+  setInterval(setAttribute, 600000); // updated each minute
+
+  /*
+  change setAttribute function to asynchronous
+  - delete call to setAttribute from makeDay
+  - use getId to get each block's id via a for loop to compare with dayJS current time in hour format
+      - may need to use substring method to isolate numbers from letters (index location 5 to 6?)
+      - var hourTextBlock = $(".description")
+      - document query selector All $(".description") with [i].id
+      - if (Number(hourTextBlock[i].id) < currentTime) {past}
+      - if (Number(hourTextBlock[i].id) > currentTime) {future}
+  */
+
   const workDayHours = 18; // 24-hr representation of 5pm +1
     
   function makeDay() {
@@ -78,7 +116,7 @@ $(function () {
       hourBlockEl.append(saveBtn, textArea, postedHour);
       postedHour.text(thisHour + " " + (h >= 12?"PM":"AM")); // ternary operator
       saveBtn.append(buttonI);
-      setAttribute(h, hourBlockEl);
+      // setAttribute(h, hourBlockEl);
   
       saveBtn.click(function(event) {
         event.preventDefault();
@@ -90,19 +128,19 @@ $(function () {
   }
   makeDay();
 
-// adds clear button
-$("#day-container").after("<button class=\"reset\">Clear Your Day</button>");
-// adds footer
-$(".reset").after("<footer class=\"vh-20\">Have a great day!</footer>");
+  // adds clear button
+  $("#day-container").after("<button class=\"reset\">Clear Your Day</button>");
+  // adds footer
+  $(".reset").after("<footer class=\"vh-20\">Have a great day!</footer>");
 
-// clear button functionality
-var page = $(".description");
-var clear = $(".reset");
-clear.click(function(event) {
-  var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
-  if (doubleCheck === true) {
-    localStorage.clear();
-    page.text("");
-  }
-})
+  // clear button functionality
+  var page = $(".description");
+  var clear = $(".reset");
+  clear.click(function(event) {
+    var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
+    if (doubleCheck === true) {
+      localStorage.clear();
+      page.text("");
+    }
+  })
 });
