@@ -44,45 +44,6 @@ $(function () {
   //     hourBlockEl.addClass("present");
   //   }
   // }
-  
-  function match() {
-    var string = pageText.id;
-    var numberMatch = string.match(/(\d+)/); // extracts numbers
-    if (numberMatch) {
-      return numberMatch[0];
-    }
-  }
-
-  function setAttribute(numberHour, hourBlockEl) {
-    const time1 = dayjs().hour(dayjs().hour()); // military time
-    const time2 = dayjs().hour(numberHour);
-    var hourTextBlock = $(".description");
-    for (t = 9; t < hourTextBlock.length; t++) {
-      if (time2.isBefore(time1)) {
-        hourBlockEl.removeClass("past present future");
-        hourBlockEl.addClass("past");
-      } else if (time2.isAfter(time1)) {
-        hourBlockEl.removeClass("past present future");
-        hourBlockEl.addClass("future");
-      } else {
-        hourBlockEl.removeClass("past present future");
-        hourBlockEl.addClass("present");
-      }
-    }
-  }
-  setAttribute(); // attributes added on page open
-  setInterval(setAttribute, 600000); // updated each minute
-
-  /*
-  change setAttribute function to asynchronous
-  - delete call to setAttribute from makeDay
-  - use getId to get each block's id via a for loop to compare with dayJS current time in hour format
-      - may need to use substring method to isolate numbers from letters (index location 5 to 6?)
-      - var hourTextBlock = $(".description")
-      - document query selector All $(".description") with [i].id
-      - if (Number(hourTextBlock[i].id) < currentTime) {past}
-      - if (Number(hourTextBlock[i].id) > currentTime) {future}
-  */
     
   function makeDay() {
     var dayContainerEl = $("#day-container"); // contains entire day HTML
@@ -90,14 +51,14 @@ $(function () {
       // create container DIV with Object-attributes
       var thisHour = setHourId(h);
       var hourBlockEl = $("<div>", {
-        id: "hour-" + setHourId(h),
+        id: "hour-" + thisHour,
         class: "row time-block",
       });
       dayContainerEl.append(hourBlockEl);
       // create save button
       var saveBtn = $("<button>", {
         class: "btn saveBtn col-2 col-md-1",
-        id: "btn-" + setHourId(h),
+        id: "btn-" + thisHour,
         ariaLabel: "save",
       });
       // create hidden <i>
@@ -108,10 +69,10 @@ $(function () {
       // create textarea
       var textArea = $("<textarea>", {
         class: "col-8 col-md-10 description",
-        id: "txt-" + setHourId(h),
+        id: "txt-" + thisHour,
         rows: "3",
         name: "event-info",
-        text: localStorage.getItem("btn-" + setHourId(h))
+        text: localStorage.getItem("btn-" + thisHour)
       });
       // create current hour DIV
       var postedHour = $("<div>", {
@@ -132,6 +93,48 @@ $(function () {
     }
   }
   makeDay();
+
+  function match() {
+    console.log("match")
+    // pageText is set of <textarea> elements (good). dot ID is undefined (bad).
+    var string = pageText.id;
+    var numberMatch = string.match(/(\d+)/); // extracts numbers
+    if (numberMatch) {
+      // return numberMatch[0];
+      console.log(numberMatch[0])
+    }
+  }
+  match()
+
+  // NEW ATTEMPT AT SETTING ATTRIBUTE AS ASYNCHRONOUS FUNCTION
+
+  // function setAttribute() {
+  //   const time1 = dayjs().hour(dayjs().hour()); // military time
+  //   const time2 = dayjs().hour(match);
+  //     if (time2.isBefore(time1)) {
+  //       pageText.removeClass("past present future");
+  //       pageText.addClass("past");
+  //     } else if (time2.isAfter(time1)) {
+  //       pageText.removeClass("past present future");
+  //       pageText.addClass("future");
+  //     } else {
+  //       pageText.removeClass("past present future");
+  //       pageText.addClass("present");
+  //     }
+  // }
+  // setAttribute(); // attributes added on page open
+  // setInterval(setAttribute, 600000); // updated each minute
+
+  /*
+  change setAttribute function to asynchronous
+  - delete call to setAttribute from makeDay
+  - use getId to get each block's id via a for loop to compare with dayJS current time in hour format
+      - may need to use substring method to isolate numbers from letters (index location 5 to 6?)
+      - var hourTextBlock = $(".description")
+      - document query selector All $(".description") with [i].id
+      - if (Number(hourTextBlock[i].id) < currentTime) {past}
+      - if (Number(hourTextBlock[i].id) > currentTime) {future}
+  */
 
   // adds clear button
   $("#day-container").after("<button class=\"reset\">Clear Your Day</button>");

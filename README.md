@@ -40,6 +40,7 @@ Documentation referenced:
 
 Tutorials referenced:
 - WebDevSimplified, [GitHub](https://github.com/WebDevSimplified), [YT Channel](https://www.youtube.com/watch?v=Ki0XXrlKlHY) - setting interval in clock to update live
+- [GeeksForGeeks.org](https://www.geeksforgeeks.org/extract-a-number-from-a-string-using-javascript/) - RegEx match method that extracts a number from a string
 
 Artists:
 - dontbeshy, [ColourLovers.com](https://www.colourlovers.com/palette/4891231/Lalalala_III) - color palette for hourly tracker
