@@ -1,6 +1,9 @@
 // code that interacts with DOM is wrapped in a jQuery call to ensure that nothing is run until browser renders HTML elements
 
 $(function () {
+  const workDayHours = 18; // 24-hr representation of 5pm +1
+  var pageText = $(".description");
+  var clear = $(".reset");
 
   // live updating clock in header
   function setClock() {
@@ -43,7 +46,11 @@ $(function () {
   // }
   
   function match() {
-    var numberMatch = str.match(/(\d+)/);
+    var string = pageText.id;
+    var numberMatch = string.match(/(\d+)/); // extracts numbers
+    if (numberMatch) {
+      return numberMatch[0];
+    }
   }
 
   function setAttribute(numberHour, hourBlockEl) {
@@ -76,8 +83,6 @@ $(function () {
       - if (Number(hourTextBlock[i].id) < currentTime) {past}
       - if (Number(hourTextBlock[i].id) > currentTime) {future}
   */
-
-  const workDayHours = 18; // 24-hr representation of 5pm +1
     
   function makeDay() {
     var dayContainerEl = $("#day-container"); // contains entire day HTML
@@ -134,13 +139,11 @@ $(function () {
   $(".reset").after("<footer class=\"vh-20\">Have a great day!</footer>");
 
   // clear button functionality
-  var page = $(".description");
-  var clear = $(".reset");
   clear.click(function(event) {
     var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
     if (doubleCheck === true) {
       localStorage.clear();
-      page.text("");
+      pageText.text("");
     }
   })
 });
