@@ -1,6 +1,9 @@
 // code that interacts with DOM is wrapped in a jQuery call to ensure that nothing is run until browser renders HTML elements
 
 $(function () {
+  const workDayHours = 18; // 24-hr representation of 5pm +1
+  var pageText = $(".description");
+  var clear = $(".reset");
 
   // live updating clock in header
   function setClock() {
@@ -15,8 +18,8 @@ $(function () {
     const mobileNow = dayjs().format("h:mmA M/D/YY")
     $("#mobile-time").text(mobileNow);
     }
-    setInterval(setClock);
-  
+  setInterval(setClock);
+
   // counts with 12hr clock
   function setHourId(numberHour) {
     if (numberHour > 12) {
@@ -24,21 +27,6 @@ $(function () {
     }
     return numberHour;
   }
-
-  // sets past, present, future by comparing hour block to present time
-  function setAttribute(numberHour, hourBlockEl) {
-    const time1 = dayjs().hour(dayjs().hour()); // military time
-    const time2 = dayjs().hour(numberHour);
-    if (time2.isBefore(time1)) {
-      hourBlockEl.addClass("past");
-    } else if (time2.isAfter(time1)) {
-      hourBlockEl.addClass("future");
-    } else {
-      hourBlockEl.addClass("present");
-    }
-  }
-    
-  const workDayHours = 18; // 24-hr representation of 5pm +1
     
   function makeDay() {
     var dayContainerEl = $("#day-container"); // contains entire day HTML
@@ -46,14 +34,14 @@ $(function () {
       // create container DIV with Object-attributes
       var thisHour = setHourId(h);
       var hourBlockEl = $("<div>", {
-        id: "hour-" + setHourId(h),
+        id: "hour-" + thisHour,
         class: "row time-block",
       });
       dayContainerEl.append(hourBlockEl);
       // create save button
       var saveBtn = $("<button>", {
         class: "btn saveBtn col-2 col-md-1",
-        id: "btn-" + setHourId(h),
+        id: "btn-" + thisHour,
         ariaLabel: "save",
       });
       // create hidden <i>
@@ -64,10 +52,10 @@ $(function () {
       // create textarea
       var textArea = $("<textarea>", {
         class: "col-8 col-md-10 description",
-        id: "txt-" + setHourId(h),
+        id: "txt-" + thisHour,
         rows: "3",
         name: "event-info",
-        text: localStorage.getItem("btn-" + setHourId(h))
+        text: localStorage.getItem("btn-" + thisHour)
       });
       // create current hour DIV
       var postedHour = $("<div>", {
@@ -77,7 +65,6 @@ $(function () {
       hourBlockEl.append(saveBtn, textArea, postedHour);
       postedHour.text(thisHour + " " + (h >= 12?"PM":"AM")); // ternary operator
       saveBtn.append(buttonI);
-      setAttribute(h, hourBlockEl);
   
       saveBtn.click(function(event) {
         event.preventDefault();
@@ -89,19 +76,57 @@ $(function () {
   }
   makeDay();
 
-// adds clear button
-$("#day-container").after("<button class=\"reset\">Clear Your Day</button>");
-// adds footer
-$(".reset").after("<footer class=\"vh-20\">Have a great day!</footer>");
-
-// clear button functionality
-var page = $(".description");
-var clear = $(".reset");
-clear.click(function(event) {
-  var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
-  if (doubleCheck === true) {
-    localStorage.clear();
-    page.text("");
+  // extracts numeric digits from a string
+  function match(string) {
+    var numberMatch = string.match(/(\d+)/); // extracts numbers
+    if (numberMatch) { // if string has numbers, return the number
+      return numberMatch;
+    }
   }
-})
+
+  // updates color as time progresses
+  function colorize() {
+    var textBlock = $(".time-block");
+    var timeOfBlock;
+    var militaryTimeOfBlock;
+    var goodTime;
+    for (c = 0; c < textBlock.length; c++) {
+      timeOfBlock = match(textBlock[c].id)[0]; // produces string of number
+      if (timeOfBlock < 9) {
+        militaryTimeOfBlock = Number(timeOfBlock) + 12; // ugly fix for converting back to military time
+        goodTime = String(militaryTimeOfBlock);
+      } else {
+        goodTime = timeOfBlock;
+      }
+      // uses dayJS isBefore/isAfter to determine time
+      const time1 = dayjs(); // current hour in military time
+      const time2 = dayjs().hour(goodTime); // hour of block in military time
+      if (time2.isBefore(time1, "hour")) { // DayJS checks hour property only of each time given
+        textBlock.removeClass("past present future");
+        textBlock.addClass("past");
+      } else if (time2.isAfter(time1, "hour")) {
+        textBlock.removeClass("past present future");
+        textBlock.addClass("future");
+      } else {
+        textBlock.removeClass("past present future");
+        textBlock.addClass("present");
+      }
+    }
+  }
+  colorize();
+  setInterval(colorize, 30000); // updates every 30s
+
+  // adds clear button
+  $("#day-container").after("<button class=\"reset\">Clear Your Day</button>");
+  // adds footer
+  $(".reset").after("<footer class=\"vh-20\">Have a great day!</footer>");
+
+  // clear button functionality
+  clear.click(function(event) {
+    var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
+    if (doubleCheck === true) {
+      localStorage.clear();
+      pageText.text("");
+    }
+  })
 });
