@@ -41,29 +41,29 @@ $(function () {
         militaryTimeOfBlock = timeOfBlock + 12; // ugly fix for converting back to military time
       }
       // uses greater than / less than to determine time
-      if (timeOfBlock < rightNow) {
-        pageText.removeClass("past present future");
-        pageText.addClass("past");
-      } else if (timeOfBlock > rightNow) {
-        pageText.removeClass("past present future");
-        pageText.addClass("future");
-      } else {
-        pageText.removeClass("past present future");
-        pageText.addClass("present");
-      }
-      // uses dayJS isBefore/isAfter to determine time
-      // const time1 = dayjs().hour(); // current hour in military time
-      // const time2 = dayjs().hour(timeOfBlock); // hour of block in military time
-      // if (time2.isBefore(time1)) {
-      //   textBlock.removeClass("past present future");
-      //   textBlock.addClass("past");
-      // } else if (time2.isAfter(time1)) {
-      //   textBlock.removeClass("past present future");
-      //   textBlock.addClass("future");
+      // if (timeOfBlock < rightNow) {
+      //   pageText.removeClass("past present future");
+      //   pageText.addClass("past");
+      // } else if (timeOfBlock > rightNow) {
+      //   pageText.removeClass("past present future");
+      //   pageText.addClass("future");
       // } else {
-      //   textBlock.removeClass("past present future");
-      //   textBlock.addClass("present");
+      //   pageText.removeClass("past present future");
+      //   pageText.addClass("present");
       // }
+      // uses dayJS isBefore/isAfter to determine time
+      const time1 = dayjs().hour(); // current hour in military time
+      const time2 = dayjs().hour(timeOfBlock); // hour of block in military time
+      if (time2.isBefore(time1)) {
+        textBlock.removeClass("past present future");
+        textBlock.addClass("past");
+      } else if (time2.isAfter(time1)) {
+        textBlock.removeClass("past present future");
+        textBlock.addClass("future");
+      } else {
+        textBlock.removeClass("past present future");
+        textBlock.addClass("present");
+      }
     }
   }
   setInterval(colorize, 1000);
