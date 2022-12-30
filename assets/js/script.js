@@ -31,14 +31,17 @@ $(function () {
   // updates color as time progresses
   function colorize() {
     var textBlock = $(".time-block");
-    var rightNow = (dayjs().hour()); // live time in military
     var timeOfBlock;
     var militaryTimeOfBlock;
+    var goodTime;
     for (c = 0; c < textBlock.length; c++) {
       // timeOfBlock = Number(match(textBlock[c].id)[0]); // produces number
       timeOfBlock = match(textBlock[c].id)[0]; // produces string of number
       if (timeOfBlock < 9) {
-        militaryTimeOfBlock = timeOfBlock + 12; // ugly fix for converting back to military time
+        militaryTimeOfBlock = Number(timeOfBlock) + 12; // ugly fix for converting back to military time
+        goodTime = String(militaryTimeOfBlock);
+      } else {
+        goodTime = timeOfBlock;
       }
       // uses greater than / less than to determine time
       // if (timeOfBlock < rightNow) {
@@ -53,7 +56,7 @@ $(function () {
       // }
       // uses dayJS isBefore/isAfter to determine time
       const time1 = dayjs().hour(); // current hour in military time
-      const time2 = dayjs().hour(militaryTimeOfBlock); // hour of block in military time
+      const time2 = dayjs().hour(goodTime); // hour of block in military time
       if (time2.isBefore(time1)) {
         textBlock.removeClass("past present future");
         textBlock.addClass("past");
