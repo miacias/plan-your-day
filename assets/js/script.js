@@ -19,57 +19,6 @@ $(function () {
     $("#mobile-time").text(mobileNow);
     }
   setInterval(setClock);
-  
-  // extracts numeric digits from a string
-  function match(string) {
-    var numberMatch = string.match(/(\d+)/); // extracts numbers
-    if (numberMatch) { // if string has numbers, return the number
-      return numberMatch;
-    }
-  }
-
-  // updates color as time progresses
-  function colorize() {
-    var textBlock = $(".time-block");
-    var timeOfBlock;
-    var militaryTimeOfBlock;
-    var goodTime;
-    for (c = 0; c < textBlock.length; c++) {
-      // timeOfBlock = Number(match(textBlock[c].id)[0]); // produces number
-      timeOfBlock = match(textBlock[c].id)[0]; // produces string of number
-      if (timeOfBlock < 9) {
-        militaryTimeOfBlock = Number(timeOfBlock) + 12; // ugly fix for converting back to military time
-        goodTime = String(militaryTimeOfBlock);
-      } else {
-        goodTime = timeOfBlock;
-      }
-      // uses greater than / less than to determine time
-      // if (timeOfBlock < rightNow) {
-      //   pageText.removeClass("past present future");
-      //   pageText.addClass("past");
-      // } else if (timeOfBlock > rightNow) {
-      //   pageText.removeClass("past present future");
-      //   pageText.addClass("future");
-      // } else {
-      //   pageText.removeClass("past present future");
-      //   pageText.addClass("present");
-      // }
-      // uses dayJS isBefore/isAfter to determine time
-      const time1 = dayjs().hour(); // current hour in military time
-      const time2 = dayjs().hour(goodTime); // hour of block in military time
-      if (time2.isBefore(time1)) {
-        textBlock.removeClass("past present future");
-        textBlock.addClass("past");
-      } else if (time2.isAfter(time1)) {
-        textBlock.removeClass("past present future");
-        textBlock.addClass("future");
-      } else {
-        textBlock.removeClass("past present future");
-        textBlock.addClass("present");
-      }
-    }
-  }
-  setInterval(colorize, 1000);
 
   // counts with 12hr clock
   function setHourId(numberHour) {
@@ -77,23 +26,6 @@ $(function () {
       return numberHour - 12; // better to return a value than to reassign by numberHour = something BECAUSE risk to variable definition
     }
     return numberHour;
-  }
-
-  // WORKING WHEN CALLED IN MAKEDAY AFTER BUTTON APPEND AS setAttribute(h, hourBlockEl);
-  // sets past, present, future by comparing hour block to present time
-  function setAttribute(numberHour, hourBlockEl) {
-    const time1 = dayjs().hour(dayjs().hour()); // military time
-    const time2 = dayjs().hour(numberHour);
-    if (time2.isBefore(time1)) {
-      hourBlockEl.removeClass("past present future");
-      hourBlockEl.addClass("past");
-    } else if (time2.isAfter(time1)) {
-      hourBlockEl.removeClass("past present future");
-      hourBlockEl.addClass("future");
-    } else {
-      hourBlockEl.removeClass("past present future");
-      hourBlockEl.addClass("present");
-    }
   }
     
   function makeDay() {
@@ -133,7 +65,6 @@ $(function () {
       hourBlockEl.append(saveBtn, textArea, postedHour);
       postedHour.text(thisHour + " " + (h >= 12?"PM":"AM")); // ternary operator
       saveBtn.append(buttonI);
-      // setAttribute(h, hourBlockEl);
   
       saveBtn.click(function(event) {
         event.preventDefault();
@@ -144,6 +75,46 @@ $(function () {
     }
   }
   makeDay();
+
+  // extracts numeric digits from a string
+  function match(string) {
+    var numberMatch = string.match(/(\d+)/); // extracts numbers
+    if (numberMatch) { // if string has numbers, return the number
+      return numberMatch;
+    }
+  }
+
+  // updates color as time progresses
+  function colorize() {
+    var textBlock = $(".time-block");
+    var timeOfBlock;
+    var militaryTimeOfBlock;
+    var goodTime;
+    for (c = 0; c < textBlock.length; c++) {
+      timeOfBlock = match(textBlock[c].id)[0]; // produces string of number
+      if (timeOfBlock < 9) {
+        militaryTimeOfBlock = Number(timeOfBlock) + 12; // ugly fix for converting back to military time
+        goodTime = String(militaryTimeOfBlock);
+      } else {
+        goodTime = timeOfBlock;
+      }
+      // uses dayJS isBefore/isAfter to determine time
+      const time1 = dayjs(); // current hour in military time
+      const time2 = dayjs().hour(goodTime); // hour of block in military time
+      if (time2.isBefore(time1, "hour")) { // DayJS checks hour property only of each time given
+        textBlock.removeClass("past present future");
+        textBlock.addClass("past");
+      } else if (time2.isAfter(time1, "hour")) {
+        textBlock.removeClass("past present future");
+        textBlock.addClass("future");
+      } else {
+        textBlock.removeClass("past present future");
+        textBlock.addClass("present");
+      }
+    }
+  }
+  colorize();
+  setInterval(colorize, 30000); // updates every 30s
 
   // adds clear button
   $("#day-container").after("<button class=\"reset\">Clear Your Day</button>");
