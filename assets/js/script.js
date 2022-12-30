@@ -53,7 +53,7 @@ $(function () {
       // }
       // uses dayJS isBefore/isAfter to determine time
       const time1 = dayjs().hour(); // current hour in military time
-      const time2 = dayjs().hour(timeOfBlock); // hour of block in military time
+      const time2 = dayjs().hour(militaryTimeOfBlock); // hour of block in military time
       if (time2.isBefore(time1)) {
         textBlock.removeClass("past present future");
         textBlock.addClass("past");
