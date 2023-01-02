@@ -3,7 +3,7 @@
 $(function () {
   const workDayHours = 18; // 24-hr representation of 5pm +1
   var pageText = $(".description");
-  var clear = $(".reset");
+  var clear = $("<button class=\"reset\">Clear Your Day</button>");
 
   // live updating clock in header
   function setClock() {
@@ -90,8 +90,9 @@ $(function () {
     var timeOfBlock;
     var militaryTimeOfBlock;
     var goodTime;
-    for (c = 0; c < textBlock.length; c++) {
-      timeOfBlock = match(textBlock[c].id)[0]; // produces string of number
+    textBlock.each(function() {
+      // to optimize space-time complexity, use SPLIT instead of MATCH
+      timeOfBlock = match($(this).attr("id"))[0];
       if (timeOfBlock < 9) {
         militaryTimeOfBlock = Number(timeOfBlock) + 12; // ugly fix for converting back to military time
         goodTime = String(militaryTimeOfBlock);
@@ -102,26 +103,27 @@ $(function () {
       const time1 = dayjs(); // current hour in military time
       const time2 = dayjs().hour(goodTime); // hour of block in military time
       if (time2.isBefore(time1, "hour")) { // DayJS checks hour property only of each time given
-        textBlock.removeClass("past present future");
-        textBlock.addClass("past");
+        $(this).removeClass("past present future");
+        $(this).addClass("past");
       } else if (time2.isAfter(time1, "hour")) {
-        textBlock.removeClass("past present future");
-        textBlock.addClass("future");
+        $(this).removeClass("past present future");
+        $(this).addClass("future");
       } else {
-        textBlock.removeClass("past present future");
-        textBlock.addClass("present");
+        $(this).removeClass("past present future");
+        $(this).addClass("present");
       }
-    }
+    })
   }
   colorize();
   setInterval(colorize, 30000); // updates every 30s
 
   // adds clear button
-  $("#day-container").after("<button class=\"reset\">Clear Your Day</button>");
+  $("#day-container").after(clear);
   // adds footer
   $(".reset").after("<footer class=\"vh-20\">Have a great day!</footer>");
 
   // clear button functionality
+  var pageText = $(".description");
   clear.click(function(event) {
     var doubleCheck = confirm("Are you sure you'd like to erase your schedule?");
     if (doubleCheck === true) {
